@@ -1,0 +1,19 @@
+GLOBAL SOLUTION 2026.1
+SOLUÇÕES EM ENERGIAS RENOVÁVEIS E SUSTENTÁVEIS
+
+PROJETO:
+Space Energy Monitor
+
+PROFESSOR:
+André Tritiack de Farias
+
+INTEGRANTES:
+Bruno Riquelme Coutinho Pereira - RM: 569619
+Eduardo Bigoli Portela - RM: 569897
+Lucas Lino Marques da Silva - RM: 572863
+
+LINK DO REPOSITÓRIO GITHUB:
+https://github.com/lucaslino28/global-solution1-energias-renovaveis
+
+LINK DO VÍDEO NO YOUTUBE:
+https://www.youtube.com/watch?v=TAc4aK8JLOo

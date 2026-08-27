@@ -1,0 +1,17 @@
+Sprint 2 - Soluções em Energias Renováveis e Sustentáveis
+ChargeGrid Sustentável - Prova de Conceito Funcional
+
+Integrantes:
+
+Lucas Lino Marques da Silva - RM 572863
+Bruno Riquelme Coutinho Pereira - RM 569619
+Eduardo Bigoli Portela - RM 569897
+Gabriel Martins Cordeiro Rodrigues - RM 570497
+Gustavo Fondato de Souza - RM 573651
+Gustavo Martins da Silva - RM 570584
+
+Link do vídeo no YouTube:
+https://www.youtube.com/watch?v=4rHRt5eTC88
+
+Link do repositório GitHub:
+https://github.com/lucaslino28/sprint2-sers-chargegrid-sustentavel
