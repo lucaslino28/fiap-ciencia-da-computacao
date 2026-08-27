@@ -1,0 +1,6 @@
+﻿Faixa_Custo,Frequencia_Absoluta,Frequencia_Relativa,Frequencia_Percentual,Frequencia_Acumulada,Frequencia_Relativa_Acumulada,Frequencia_Percentual_Acumulada
+"(0.305, 1004.24]",943,0.9843,98.43,943,0.9843,98.43
+"(1004.24, 2003.18]",13,0.0136,1.36,956,0.9979,99.79
+"(2003.18, 3002.12]",0,0.0,0.0,956,0.9979,99.79
+"(3002.12, 4001.06]",0,0.0,0.0,956,0.9979,99.79
+"(4001.06, 5000.0]",2,0.0021,0.21,958,1.0,100.0

@@ -1,0 +1,256 @@
+ATIVIDADE 1
+section .data
+    num db 4                ; número inicial
+    msg db "Resultado: "
+tam equ $-msg                ; tamanho da mensagem
+
+section .bss
+    res resb 1               ; espaço para 1 caractere
+
+section .text
+    global _start
+
+_start:
+    ; aplicar INC duas vezes
+    mov al, 4
+    inc al           ; primeiro incremento
+    inc al
+    
+    mov [res], al
+    add byte [res], 48
+
+    ; imprimir mensagem
+    mov eax, 4               ; syscall write
+    mov ebx, 1               ; saída padrão
+    mov ecx, msg
+    mov edx, tam
+    int 0x80
+
+    ; imprimir resultado
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, res
+    mov edx, 1
+    int 0x80
+
+    ; finalizar programa
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
+
+ATIVIDADE 2
+EXERCÍCIO A:
+
+section .data
+    msg db "Multiplicacao: "
+    tam equ $-msg
+
+section .bss
+    dez resb 1
+    uni resb 1
+
+section .text
+    global _start
+
+_start:
+
+    ; -------- MULTIPLICAÃ‡ÃƒO --------
+    mov al, 5
+    mov bl, 6
+    mul bl          ; AX = 12
+
+    ; -------- SEPARAR DÃGITOS --------
+    mov bl, 10
+    div bl          ; AL = dezena, AH = unidade
+
+    mov [dez], al
+    mov [uni], ah
+
+    ; -------- ASCII --------
+    add byte [dez], 48
+    add byte [uni], 48
+
+    ; -------- PRINT --------
+    mov eax,4
+    mov ebx,1
+    mov ecx,msg
+    mov edx,tam
+    int 0x80
+
+    ; dezena
+    mov eax,4
+    mov ebx,1
+    mov ecx,dez
+    mov edx,1
+    int 0x80
+
+    ; unidade
+    mov eax,4
+    mov ebx,1
+    mov ecx,uni
+    mov edx,1
+    int 0x80
+
+    ; exit
+    mov eax,1
+    int 0x80
+
+EXERCÍCIO B:
+section .data
+    msg db "Divisao: "
+    tam equ $-msg
+
+section .bss
+    quo resb 1
+    res resb 1
+
+section .text
+    global _start
+
+_start:
+
+    ; -------- DIVISÃƒO --------
+    mov al, 8
+    mov bl, 3
+    div bl
+
+    mov [quo], al
+    mov [res], ah
+
+    ; ASCII
+    add byte [quo], 48
+    add byte [res], 48
+
+    ; PRINT
+    mov eax,4
+    mov ebx,1
+    mov ecx,msg
+    mov edx,tam
+    int 0x80
+
+    ; quociente
+    mov eax,4
+    mov ebx,1
+    mov ecx,quo
+    mov edx,1
+    int 0x80
+
+    ; espaÃ§o
+    mov eax,4
+    mov ebx,1
+    mov ecx,esp
+    mov edx,1
+    int 0x80
+
+    ; resto
+    mov eax,4
+    mov ebx,1
+    mov ecx,res
+    mov edx,1
+    int 0x80
+
+    mov eax,1
+    int 0x80
+
+EXERCÍCIO C:
+section .data
+    msg db "Multiplicacao: "
+    tam equ $-msg
+
+section .bss
+    dez resb 1
+    uni resb 1
+
+section .text
+    global _start
+
+_start:
+
+    ; -------- MULTIPLICAÃ‡ÃƒO --------
+    mov al, 7
+    mov bl, 8
+    mul bl          ; AX = 12
+
+    ; -------- SEPARAR DÃGITOS --------
+    mov bl, 10
+    div bl          ; AL = dezena, AH = unidade
+
+    mov [dez], al
+    mov [uni], ah
+
+    ; -------- ASCII --------
+    add byte [dez], 48
+    add byte [uni], 48
+
+    ; -------- PRINT --------
+    mov eax,4
+    mov ebx,1
+    mov ecx,msg
+    mov edx,tam
+    int 0x80
+
+    ; dezena
+    mov eax,4
+    mov ebx,1
+    mov ecx,dez
+    mov edx,1
+    int 0x80
+
+    ; unidade
+    mov eax,4
+    mov ebx,1
+    mov ecx,uni
+    mov edx,1
+    int 0x80
+
+    ; exit
+    mov eax,1
+    int 0x80
+
+EXERCÍCIO D:
+section .data
+    num1 db 12
+    num2 db 7
+
+    msg db "Resultado: "
+    tam equ $-msg
+
+section .bss
+    res resb 2     ; espaço para 2 dígitos
+
+section .text
+    global _start
+
+_start:
+    ; soma
+    mov al, [num1]
+    add al, [num2]     ; AL = 19
+
+    ; converter para decimal ASCII
+    mov bl, 10
+    div bl             ; AL = quociente (1), AH = resto (9)
+
+    add al, '0'        ; converte quociente para ASCII
+    mov [res], al
+
+    add ah, '0'        ; converte resto para ASCII
+    mov [res+1], ah
+
+    ; imprimir mensagem
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, msg
+    mov edx, tam
+    int 0x80
+
+    ; imprimir resultado (2 dígitos)
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, res
+    mov edx, 2
+    int 0x80
+
+    ; finalizar
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
