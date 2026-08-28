@@ -1,0 +1,266 @@
+MicroChallenge 1 — ChargeGrid Protocol
+
+-----------------------------------------------------------------------------------------
+Link do projeto no Wokwi: 
+https://wokwi.com/projects/473641720221473793
+
+-----------------------------------------------------------------------------------------
+Código-fonte em MicroPython:
+from machine import Pin
+
+led_verde = Pin(15, Pin.OUT)
+led_vermelho = Pin(14, Pin.OUT)
+
+estado = "DISPONIVEL"
+energia_kw = 8
+
+
+def leds(verde=0, vermelho=0):
+    led_verde.value(verde)
+    led_vermelho.value(vermelho)
+
+
+def start():
+    global estado
+
+    if estado == "BLOQUEADA":
+        print("Operacao negada: Estacao BLOQUEADA.")
+        return
+
+    estado = "CARREGANDO"
+    leds(1, 0)
+
+    print("Comando: START")
+    print("Estado da estacao: INICIAR CARREGAMENTO")
+
+
+def stop():
+    global estado
+
+    if estado == "BLOQUEADA":
+        print("Operacao negada: Estacao BLOQUEADA.")
+        return
+
+    estado = "DISPONIVEL"
+    leds(0, 0)
+
+    print("Comando: STOP")
+    print("Estado da estacao: PARAR O CARREGAMENTO")
+
+
+def status():
+    print("Comando: STATUS")
+    print("Estado atual:", estado)
+
+
+def energy():
+    binario = bin(energia_kw)[2:]
+
+    while len(binario) < 4:
+        binario = "0" + binario
+
+    print("Comando: ENERGY")
+    print("Energia disponivel:", energia_kw, "kW")
+    print("Decimal:", energia_kw)
+    print("Binario:", binario)
+
+
+def error():
+    global estado
+
+    estado = "ERRO"
+    leds(0, 1)
+
+    print("Comando: ERROR")
+    print("Estado da estacao: ERRO")
+
+
+def reset():
+    global estado
+
+    estado = "DISPONIVEL"
+    leds(0, 0)
+
+    print("Comando: RESET")
+    print("Estado da estacao: DISPONIVEL")
+
+
+def lock():
+    global estado
+
+    estado = "BLOQUEADA"
+    leds(0, 1)
+
+    print("Comando: LOCK")
+    print("Estado da estacao: BLOQUEADA")
+
+
+def unlock():
+    global estado
+
+    estado = "DISPONIVEL"
+    leds(0, 0)
+
+    print("Comando: UNLOCK")
+    print("Estado da estacao: DISPONIVEL")
+
+
+def invalido():
+    leds(0, 1)
+
+    print("ERROR")
+    print("COMANDO INVALIDO")
+
+
+comandos = {
+    "0001": start,
+    "0010": stop,
+    "0011": status,
+    "0100": energy,
+    "0101": error,
+    "0110": reset,
+    "0111": lock,
+    "1000": unlock
+}
+
+
+def exibir_menu():
+    print("===============================")
+    print("      CHARGEGRID PROTOCOL")
+    print("===============================")
+    print("Estacao pronta.")
+    print()
+    print("0001 - START")
+    print("0010 - STOP")
+    print("0011 - STATUS")
+    print("0100 - ENERGY")
+    print("0101 - ERROR")
+    print("0110 - RESET")
+    print("0111 - LOCK")
+    print("1000 - UNLOCK")
+    print()
+
+
+leds(0, 0)
+exibir_menu()
+
+while True:
+    codigo = input("Comando: ").strip()
+
+    if codigo == "":
+        continue
+
+    print()
+    print("Comando recebido:", codigo)
+
+    funcao = comandos.get(codigo, invalido)
+    funcao()
+
+    print()
+-----------------------------------------------------------------------------------------
+Identificação dos integrantes:
+
+NOME: Bruno Riquelme Coutinho Pereira - RM 569619
+NOME: Eduardo Bigoli Portela - RM 569897
+NOME: Lucas Lino Marques da Silva - RM 572863
+
+-----------------------------------------------------------------------------------------
+Respostas das perguntas de reflexão:
+
+1. Por que dois dispositivos precisam utilizar um protocolo para se comunicar?
+R: Dois dispositivos precisam usar um protocolo para conseguir se entender. Ele funciona como um conjunto de regras que diz como os comandos devem ser enviados e o que cada um significa.
+
+2. Por que os comandos podem ser representados utilizando bits?
+R: Os comandos podem ser representados por bits porque o computador e o Raspberry Pi trabalham com informações em binário, usando 0 e 1. No nosso projeto, cada sequência representa um comando diferente.
+
+3. Qual é a função do Raspberry Pi Pico?
+R: O Raspberry Pi Pico é o dispositivo que executa o código do projeto. Ele recebe os comandos, interpreta o que deve ser feito e controla os LEDs de acordo com o estado da estação.
+
+4. Qual é a função da comunicação serial?
+R: A comunicação serial serve para trocar informações entre o Pico e o computador. É por ela que conseguimos enviar os comandos e também ver as respostas que o programa retorna.
+
+5. Qual é a função dos LEDs?
+R: Os LEDs servem para mostrar visualmente o que está acontecendo na estação. O verde indica o carregamento e o vermelho indica erro ou bloqueio.
+
+6. Onde podemos identificar a utilização de memória?
+R: A memória pode ser percebida nas variáveis do programa, como estado e energia_kw, porque elas guardam informações que o sistema precisa usar durante a execução.
+
+7. O que acontece quando o Pico recebe um comando desconhecido?
+R: Quando o Pico recebe um comando que não existe no protocolo, ele executa a função de comando inválido. Nesse caso, o LED vermelho acende e aparece a mensagem de erro.
+
+8. Por que um protocolo precisa possuir regras bem definidas?
+R: Um protocolo precisa ter regras bem definidas para que os dispositivos saibam exatamente como interpretar cada comando. Se as regras não forem claras, podem acontecer erros na comunicação.
+
+9. Como esse protocolo poderia permitir a comunicação entre uma estação de recarga
+e um sistema de pagamento?
+R: Esse protocolo poderia ser usado junto com um sistema de pagamento adicionando comandos de autorização e confirmação. Por exemplo, depois que o pagamento fosse aprovado, o sistema poderia liberar o comando para iniciar a recarga.
+
+10. Se o protocolo fosse utilizado em uma estação real, quais outras informações
+deveriam ser transmitidas?
+R: Em uma estação real, também seria importante transmitir informações como energia consumida, tempo de recarga, valor a pagar, potência utilizada, identificação do usuário, status do pagamento e possíveis erros da estação.
+-----------------------------------------------------------------------------------------
+Demonstração dos testes realizados:
+
+===============================
+      CHARGEGRID PROTOCOL
+===============================
+Estacao pronta.
+
+0001 - START
+0010 - STOP
+0011 - STATUS
+0100 - ENERGY
+0101 - ERROR
+0110 - RESET
+0111 - LOCK
+1000 - UNLOCK
+
+Comando: 0001
+
+Comando recebido: 0001
+Comando: START
+Estado da estacao: INICIAR CARREGAMENTO
+
+Comando: 0010
+
+Comando recebido: 0010
+Comando: STOP
+Estado da estacao: PARAR O CARREGAMENTO
+
+Comando: 0011
+
+Comando recebido: 0011
+Comando: STATUS
+Estado atual: DISPONIVEL
+
+Comando: 0100
+
+Comando recebido: 0100
+Comando: ENERGY
+Energia disponivel: 8 kW
+Decimal: 8
+Binario: 1000
+
+Comando: 0101
+
+Comando recebido: 0101
+Comando: ERROR
+Estado da estacao: ERRO
+
+Comando: 0110
+
+Comando recebido: 0110
+Comando: RESET
+Estado da estacao: DISPONIVEL
+
+Comando: 0111
+
+Comando recebido: 0111
+Comando: LOCK
+Estado da estacao: BLOQUEADA
+
+Comando: 1111
+
+Comando recebido: 1111
+ERROR
+COMANDO INVALIDO
