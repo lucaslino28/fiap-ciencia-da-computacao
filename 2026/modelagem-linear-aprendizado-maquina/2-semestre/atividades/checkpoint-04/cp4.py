@@ -1,6 +1,3 @@
-import random
-import matplotlib.pyplot as plt
-
 # Checkpoint 4 - Modelagem Linear para Aprendizado de Máquina
 # Curso: Ciência da Computação - 1º ano - FIAP
 # Tema: Análise probabilística de prazos e atrasos de entregas na cidade de São Paulo
@@ -12,6 +9,9 @@ import matplotlib.pyplot as plt
 # Gustavo Fondato de Souza - RM573651
 # Gustavo Martins Da Silva - RM570584
 # Lucas Lino Marques da Silva - RM572863
+
+import random
+import matplotlib.pyplot as plt
 
 random.seed(42)
 
@@ -29,9 +29,6 @@ for i in range(1, 101):
     regiao = random.choice(regioes)
     prazo_previsto = random.randint(2, 5)
 
-    # Tempo real gerado com distribuição normal
-    # A média fica 0,2 dia abaixo do prazo previsto.
-    # O desvio padrão 0,8 representa a variação natural das entregas.
     tempo_real = round(
         random.gauss(prazo_previsto - 0.2, 0.8),
         2
