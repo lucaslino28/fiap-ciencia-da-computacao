@@ -1,0 +1,44 @@
+AVALIAÇÃO - PARTE TEÓRICA INDIVIDUAL
+Versão A1 - referente a Bubble Sort
+
+Questão 1 - Busca e estrutura dos dados - 0,75 ponto
+while inicio <= fim:
+    meio = (inicio + fim) // 2
+    if lista[meio] == procurado:
+        return meio
+    elif lista[meio] < procurado:
+        inicio = meio + 1
+    else:
+        fim = meio - 1
+
+a) Identifique o algoritmo.
+R: O algoritmo é a Busca Binária.
+
+b) Explique por que ele não deve ser aplicado diretamente ao vetor original da atividade.
+R: Ela não pode ser usada direto no vetor original porque a busca binária precisa que os dados estejam ordenados. Se a lista estiver bagunçada, não dá para saber corretamente se deve continuar procurando do lado esquerdo ou direito.
+
+c) Indique sua complexidade Big-O no pior caso.
+R: A pior complexidade é O(log n).
+
+Questão 2 - Linear x Binária - 0,75 ponto
+Associe O(n) e O(log n), respectivamente, às buscas estudadas e explique por que o crescimento do número de operações é diferente quando o tamanho da entrada aumenta.
+R: A busca linear é O(n) porque pode precisar verificar os elementos um por um. Já a busca binária é O(log n) porque elimina metade dos elementos a cada comparação, sendo mais eficiente com grandes quantidades de dados.
+
+Questão 3 - Ordenação - 1,0 ponto
+Um vetor está inicialmente em ordem inversa. Explique por que esse caso é particularmente desfavorável para o Bubble Sort, considerando comparações, trocas e complexidade.
+R: A ordem inversa é desfavorável para o Bubble Sort porque ele precisa fazer muitas comparações e trocas. Nesse caso, chega ao pior caso de complexidade O(n²).
+
+Questão 4 - Decisão algorítmica - 1,5 ponto
+Uma estação recebe 1.000.000 de registros uma vez por dia e, depois, realiza 50.000 buscas sobre os mesmos dados. Compare: (A) manter os dados desordenados e realizar 50.000 buscas lineares; (B) ordenar uma vez e realizar 50.000 buscas binárias.
+Responda:
+a) qual estratégia escolheria;
+R: Eu escolheria a opção B, ordenar os dados uma vez e depois fazer as 50.000 buscas binárias.
+
+b) por que;
+R: Eu escolheria essa opção porque a busca binária é mais rápida para muitas buscas. Como os dados vão ser pesquisados 50.000 vezes, compensa ordenar uma vez e depois usar O(log n) em vez de fazer várias buscas lineares O(n).
+
+c) se o custo da ordenação inicial pode ser ignorado;
+R: Não, porque ordenar os dados também tem um custo. Mas como isso é feito só uma vez e depois serão feitas 50.000 buscas, esse custo acaba compensando.
+
+d) por que o tempo de uma única execução em um computador não basta para estabelecer a eficiência geral de um algoritmo. Utilize complexidade e Big-O.
+R: Uma única execução pode variar dependendo do computador e do tamanho dos dados. O Big-O ajuda a comparar melhor os algoritmos, mostrando como o número de operações cresce conforme a entrada aumenta.
