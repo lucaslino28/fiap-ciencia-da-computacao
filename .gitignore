@@ -1,3 +1,5 @@
 .DS_Store
 .idea/
 2026/modelagem-linear-aprendizado-maquina/2-semestre/atividades/sprint-03/grafico_*.png
+__pycache__/
+*.pyc
