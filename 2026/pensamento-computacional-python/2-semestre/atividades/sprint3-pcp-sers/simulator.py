@@ -1,66 +1,175 @@
-"""Funcoes de calculo da sessao de recarga.
+"""Lógica da simulação de recarga.
 
-Conceitos usados: variaveis, funcoes, condicionais e dicionario.
+Responsável por:
+- validar os dados;
+- calcular consumo de energia;
+- calcular energia solar;
+- calcular energia da rede;
+- calcular participação renovável;
+- formatar duração.
 """
 
 from datetime import datetime
 
 
-def calcular_sessao(potencia_kw, duracao_minutos, percentual_solar):
-    """Calcula os dados de uma sessao de recarga.
+# ==================================================
+# CÁLCULO DA SESSÃO
+# ==================================================
 
-    Retorna um dicionario com os resultados.
-    Levanta ValueError se os dados forem invalidos.
-    """
-    # Validacoes simples
+def calcular_sessao(
+    potencia_kw,
+    duracao_minutos,
+    percentual_solar
+):
+    """Calcula os dados de uma sessão de recarga."""
+
+    # =========================
+    # VALIDAÇÕES
+    # =========================
+
     if potencia_kw <= 0:
-        raise ValueError("Potencia deve ser maior que zero.")
-    if duracao_minutos <= 0:
-        raise ValueError("Duracao deve ser maior que zero.")
-    if percentual_solar < 0 or percentual_solar > 100:
-        raise ValueError("Percentual solar deve estar entre 0 e 100.")
+        raise ValueError(
+            "A potência deve ser maior que zero."
+        )
 
-    # 1. Converte minutos para horas
+    if duracao_minutos <= 0:
+        raise ValueError(
+            "A duração deve ser maior que zero."
+        )
+
+    if percentual_solar < 0 or percentual_solar > 100:
+        raise ValueError(
+            "O percentual solar deve estar entre 0 e 100."
+        )
+
+
+    # =========================
+    # TEMPO
+    # =========================
+
     tempo_horas = duracao_minutos / 60
 
-    # 2. Energia total consumida
-    energia_total = round(potencia_kw * tempo_horas, 2)
 
-    # 3. Energia de origem solar
-    energia_solar = round(energia_total * percentual_solar / 100, 2)
+    # =========================
+    # ENERGIA TOTAL
+    # =========================
 
-    # 4. Energia proveniente da rede (garante soma exata)
-    energia_rede = round(energia_total - energia_solar, 2)
+    energia_total = (
+        potencia_kw
+        * tempo_horas
+    )
 
-    # 5. Percentual renovavel
+
+    # =========================
+    # ENERGIA SOLAR
+    # =========================
+
+    energia_solar = (
+        energia_total
+        * percentual_solar
+        / 100
+    )
+
+
+    # =========================
+    # ENERGIA DA REDE
+    # =========================
+
+    energia_rede = (
+        energia_total
+        - energia_solar
+    )
+
+
+    # =========================
+    # PARTICIPAÇÃO RENOVÁVEL
+    # =========================
+
     if energia_total > 0:
-        percentual_renovavel = round(energia_solar / energia_total * 100, 2)
-    else:
-        percentual_renovavel = 0.0
 
-    # 6. Data e hora do registro
-    data_hora = datetime.now().strftime("%d/%m/%Y %H:%M")
+        percentual_renovavel = (
+            energia_solar
+            / energia_total
+        ) * 100
+
+    else:
+
+        percentual_renovavel = 0
+
+
+    # =========================
+    # DATA E HORA
+    # =========================
+
+    data_hora = datetime.now().strftime(
+        "%d/%m/%Y %H:%M"
+    )
+
+
+    # =========================
+    # RESULTADO
+    # =========================
 
     sessao = {
         "data_hora": data_hora,
-        "potencia_kw": potencia_kw,
-        "duracao_minutos": int(duracao_minutos),
-        "energia_total_kwh": energia_total,
-        "energia_solar_kwh": energia_solar,
-        "energia_rede_kwh": energia_rede,
-        "percentual_renovavel": percentual_renovavel,
+
+        "potencia_kw": round(
+            float(potencia_kw),
+            2
+        ),
+
+        "duracao_minutos": int(
+            duracao_minutos
+        ),
+
+        "energia_total_kwh": round(
+            energia_total,
+            2
+        ),
+
+        "energia_solar_kwh": round(
+            energia_solar,
+            2
+        ),
+
+        "energia_rede_kwh": round(
+            energia_rede,
+            2
+        ),
+
+        "percentual_renovavel": round(
+            percentual_renovavel,
+            2
+        )
     }
+
     return sessao
 
 
+# ==================================================
+# FORMATAÇÃO DA DURAÇÃO
+# ==================================================
+
 def formatar_duracao(duracao_minutos):
-    """Transforma minutos em texto tipo '1h30' ou '90 min'."""
-    duracao_minutos = int(duracao_minutos)
+    """Converte minutos para um formato mais amigável."""
+
+    duracao_minutos = int(
+        duracao_minutos
+    )
+
     horas = duracao_minutos // 60
+
     minutos = duracao_minutos % 60
 
+
     if horas > 0 and minutos > 0:
-        return f"{horas}h{minutos:02d}"
+
+        return f"{horas}h {minutos:02d}min"
+
+
     if horas > 0:
+
         return f"{horas}h"
+
+
     return f"{minutos} min"
