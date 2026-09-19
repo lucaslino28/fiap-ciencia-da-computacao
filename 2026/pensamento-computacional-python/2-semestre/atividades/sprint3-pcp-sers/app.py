@@ -1,4 +1,4 @@
-"""ChargeGrid Simulator - interface Streamlit.
+"""ChargeGrid Intelligence - interface Streamlit.
 
 Camada visual da aplicação. A regra de negócio continua em simulator.py
 e o armazenamento continua em database.py.
@@ -20,7 +20,7 @@ import simulator
 # ==================================================
 
 st.set_page_config(
-    page_title="ChargeGrid Simulator",
+    page_title="ChargeGrid Intelligence",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="auto",
@@ -54,7 +54,7 @@ st.markdown(
 /* BASE */
 :root {{ color-scheme: dark; }}
 .stApp {{ background: linear-gradient(180deg, #0B0E13 0%, {FUNDO} 100%); color: {TEXTO}; }}
-.block-container {{ max-width: 1240px; padding-top: 1.6rem; padding-bottom: 3rem; }}
+.block-container {{ max-width: 1420px; padding-top: 1.6rem; padding-bottom: 3rem; }}
 [data-testid="stMainBlockContainer"] > div {{ gap: 0.9rem; }}
 hr {{ border-color: {BORDA} !important; }}
 
@@ -69,12 +69,13 @@ p, label {{ color: {TEXTO_SECUNDARIO}; }}
 
 /* SIDEBAR */
 [data-testid="stSidebar"] {{ background: #0D1117; border-right: 1px solid {BORDA}; }}
-[data-testid="stSidebar"] [data-testid="stSidebarContent"] {{ padding-top: 1rem; }}
-.sidebar-brand {{ border-bottom: 1px solid {BORDA}; padding: 0.25rem 0 1.1rem; margin-bottom: 1rem; }}
+[data-testid="stSidebar"] [data-testid="stSidebarContent"] {{ padding-top: 0.75rem; }}
+.sidebar-brand {{ border-bottom: 1px solid {BORDA}; padding: 0.4rem 0 1.2rem; margin-bottom: 1rem; }}
+.sidebar-brand__logo-wrap {{ display: flex; align-items: center; min-height: 72px; padding: 0.8rem 0 1.05rem; border-bottom: 1px solid #222B36; margin-bottom: 1rem; }}
+.sidebar-brand__logo {{ display: block; width: 174px; max-width: 82%; height: auto; }}
 .sidebar-brand__eyebrow {{ color: {FIAP}; font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0; margin-bottom: 0.35rem; }}
-.sidebar-brand__name {{ color: #FFFFFF; font-size: 1.3rem; font-weight: 800; }}
-.sidebar-brand__mark {{ color: {GOODWE}; margin-right: 0.35rem; }}
-.sidebar-brand__copy {{ color: #8993A1; font-size: 0.78rem; margin-top: 0.3rem; }}
+.sidebar-brand__name {{ color: #FFFFFF; font-size: 1.18rem; font-weight: 800; line-height: 1.25; }}
+.sidebar-brand__copy {{ color: #8993A1; font-size: 0.76rem; line-height: 1.45; margin-top: 0.35rem; }}
 .sidebar-nav-label {{ color: #687382; font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0; margin: 0 0 0.5rem 0.25rem; }}
 [data-testid="stSidebar"] [data-testid="stRadio"] > label {{ display: none; }}
 [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] {{ gap: 0.35rem; }}
@@ -86,10 +87,6 @@ p, label {{ color: {TEXTO_SECUNDARIO}; }}
 [data-testid="stSidebar"] label[data-testid="stRadioOption"][data-selected="true"] {{ background: rgba(237, 20, 91, 0.12); border-color: rgba(237, 20, 91, 0.48); }}
 [data-testid="stSidebar"] label[data-testid="stRadioOption"][data-selected="true"]::before {{ content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: {FIAP}; }}
 [data-testid="stSidebar"] label[data-testid="stRadioOption"][data-selected="true"] p {{ color: #FFFFFF; font-weight: 700; }}
-.sidebar-partner {{ background: #121820; border: 1px solid {BORDA}; border-radius: 8px; margin-top: 1.25rem; padding: 0.9rem 1rem; }}
-.sidebar-partner__label {{ color: #6F7A88; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0; }}
-.sidebar-partner__logo {{ display: block; width: 132px; max-width: 100%; height: auto; margin: 0.6rem 0 0.45rem; }}
-.sidebar-partner__copy {{ color: #8F99A7; font-size: 0.7rem; line-height: 1.45; }}
 .sidebar-footer {{ border-top: 1px solid {BORDA}; margin-top: 1rem; padding-top: 0.9rem; }}
 .sidebar-footer__label {{ color: #687382; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0; }}
 .sidebar-footer__title {{ color: #DCE1E7; font-size: 0.78rem; font-weight: 700; margin-top: 0.25rem; }}
@@ -160,6 +157,105 @@ div.stButton > button:focus {{ box-shadow: 0 0 0 3px rgba(237, 20, 91, 0.24); }}
 .network-note {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: rgba(110, 168, 254, 0.07); border: 1px solid rgba(110, 168, 254, 0.28); border-radius: 8px; padding: 0.8rem 1rem; margin-top: 0.7rem; }}
 .network-note__label {{ color: #A9BFE2; font-size: 0.78rem; }}
 .network-note__value {{ color: {REDE}; font-size: 0.95rem; font-weight: 750; white-space: nowrap; }}
+
+/* SIMULAÇÃO */
+.simulation-steps {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; background: #0D1218; border: 1px solid {BORDA}; border-radius: 8px; margin: 0.2rem 0 1.25rem; overflow: hidden; }}
+.simulation-step {{ display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.65rem; min-height: 72px; padding: 0.8rem 1rem; border-right: 1px solid {BORDA}; }}
+.simulation-step:last-child {{ border-right: 0; }}
+.simulation-step__number {{ display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #1A222C; border: 1px solid #35404D; color: #8E99A7; font-size: 0.76rem; font-weight: 800; }}
+.simulation-step__title {{ color: #8E99A7; font-size: 0.78rem; font-weight: 750; }}
+.simulation-step__copy {{ color: #626D7A; font-size: 0.68rem; margin-top: 0.12rem; }}
+.simulation-step--active {{ background: rgba(237, 20, 91, 0.08); }}
+.simulation-step--active .simulation-step__number {{ background: {FIAP}; border-color: {FIAP}; color: #FFFFFF; }}
+.simulation-step--active .simulation-step__title {{ color: #FFFFFF; }}
+.simulation-step--done .simulation-step__number {{ background: rgba(67, 209, 125, 0.12); border-color: rgba(67, 209, 125, 0.42); color: #63DF99; }}
+.simulation-step--done .simulation-step__title {{ color: #C8D0D9; }}
+.config-helper {{ color: #7F8A98; font-size: 0.72rem; line-height: 1.5; margin: -0.25rem 0 0.8rem; }}
+.charger-profile {{ display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: center; background: #0D131A; border: 1px solid #27313C; border-left: 3px solid {GOODWE}; border-radius: 8px; padding: 0.75rem 0.85rem; margin: 0.2rem 0 1rem; }}
+.charger-profile__icon {{ display: grid; place-items: center; width: 36px; height: 36px; border-radius: 7px; background: rgba(232, 74, 54, 0.1); font-size: 1rem; }}
+.charger-profile__title {{ color: #F2F4F7; font-size: 0.78rem; font-weight: 750; }}
+.charger-profile__copy {{ color: #7F8A98; font-size: 0.68rem; margin-top: 0.12rem; }}
+.charger-profile__specs {{ display: flex; flex-wrap: wrap; gap: 0.35rem 0.7rem; color: #AAB3BE; font-size: 0.66rem; margin-top: 0.45rem; }}
+.charger-profile__specs span {{ display: inline-flex; align-items: center; gap: 0.25rem; }}
+.preview-panel {{ position: relative; overflow: hidden; height: 100%; min-height: 560px; background: #10161D; border: 1px solid {BORDA}; border-radius: 8px; padding: 1.15rem; }}
+.preview-panel::before {{ content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, {SOLAR} var(--solar-share), {REDE} var(--solar-share)); }}
+.preview-panel__eyebrow {{ color: #7E8996; font-size: 0.67rem; font-weight: 800; text-transform: uppercase; }}
+.preview-panel__title {{ color: #FFFFFF; font-size: 1.05rem; font-weight: 780; margin-top: 0.28rem; }}
+.preview-panel__copy {{ color: #7F8A98; font-size: 0.72rem; line-height: 1.45; margin-top: 0.28rem; }}
+.preview-panel__total {{ border-bottom: 1px solid {BORDA}; padding: 1rem 0 0.85rem; }}
+.preview-panel__total-label {{ color: #7F8A98; font-size: 0.7rem; }}
+.preview-panel__total-value {{ color: #FFFFFF; font-size: 1.8rem; font-weight: 800; line-height: 1.15; margin-top: 0.2rem; }}
+.preview-panel__total-unit {{ color: #8A95A3; font-size: 0.75rem; font-weight: 650; }}
+.preview-grid {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; margin-top: 0.85rem; }}
+.preview-stat {{ background: #0C1117; border: 1px solid #252E39; border-radius: 7px; padding: 0.75rem; }}
+.preview-stat__label {{ color: #788492; font-size: 0.67rem; }}
+.preview-stat__value {{ color: #FFFFFF; font-size: 0.95rem; font-weight: 780; margin-top: 0.2rem; }}
+.preview-stat__value--solar {{ color: {SOLAR}; }}
+.preview-stat__value--grid {{ color: {REDE}; }}
+.preview-split {{ margin-top: 0.95rem; }}
+.preview-split__head {{ display: flex; justify-content: space-between; gap: 1rem; color: #8994A2; font-size: 0.68rem; margin-bottom: 0.42rem; }}
+.preview-split__bar {{ display: flex; height: 10px; overflow: hidden; background: #1B232D; border-radius: 3px; }}
+.preview-split__solar {{ width: var(--solar-share); background: {SOLAR}; }}
+.preview-split__grid {{ flex: 1; background: {REDE}; }}
+.preview-limit {{ color: #AAB8CA; font-size: 0.7rem; line-height: 1.5; background: #0C1117; border-left: 3px solid {GOODWE}; padding: 0.65rem 0.75rem; margin-top: 0.9rem; }}
+.simulation-note {{ display: flex; align-items: flex-start; gap: 0.65rem; background: rgba(110, 168, 254, 0.06); border: 1px solid rgba(110, 168, 254, 0.22); border-radius: 8px; color: #AAB8CA; font-size: 0.72rem; line-height: 1.5; padding: 0.75rem 0.85rem; margin: 0.85rem 0; }}
+.simulation-note__icon {{ color: {REDE}; font-size: 0.9rem; }}
+.session-strip {{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; background: #0E141B; border: 1px solid {BORDA}; border-left: 3px solid {GOODWE}; border-radius: 8px; margin: 0.75rem 0 1.1rem; }}
+.session-strip__item {{ padding: 0.72rem 0.85rem; border-right: 1px solid {BORDA}; }}
+.session-strip__item:last-child {{ border-right: 0; }}
+.session-strip__label {{ color: #747F8D; font-size: 0.65rem; }}
+.session-strip__value {{ color: #F4F6F8; font-size: 0.78rem; font-weight: 750; margin-top: 0.15rem; }}
+.completion-note {{ display: flex; justify-content: space-between; gap: 1rem; align-items: center; background: rgba(67, 209, 125, 0.07); border: 1px solid rgba(67, 209, 125, 0.25); border-radius: 8px; padding: 0.8rem 0.9rem; margin-top: 0.75rem; }}
+.completion-note__copy {{ color: #B7C3CC; font-size: 0.72rem; line-height: 1.45; }}
+.completion-note__value {{ color: #63DF99; font-size: 0.84rem; font-weight: 800; white-space: nowrap; }}
+
+/* HISTÓRICO */
+.history-context {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #0E141B; border: 1px solid {BORDA}; border-left: 3px solid {FIAP}; border-radius: 8px; padding: 0.75rem 0.9rem; margin: 0.15rem 0 1rem; }}
+.history-context__status {{ display: flex; align-items: center; gap: 0.5rem; color: #E7EBF0; font-size: 0.78rem; font-weight: 700; }}
+.history-context__dot {{ width: 7px; height: 7px; border-radius: 50%; background: #43D17D; box-shadow: 0 0 0 4px rgba(67, 209, 125, 0.10); }}
+.history-context__meta {{ color: #7F8A98; font-size: 0.72rem; text-align: right; }}
+.history-kpis {{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin-bottom: 1.2rem; }}
+.history-kpi {{ --history-accent: {FIAP}; position: relative; overflow: hidden; min-height: 122px; background: {CARD}; border: 1px solid {BORDA}; border-radius: 8px; padding: 0.95rem 1rem; }}
+.history-kpi::before {{ content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--history-accent); }}
+.history-kpi--energy {{ --history-accent: {GOODWE}; }}
+.history-kpi--solar {{ --history-accent: {SOLAR}; }}
+.history-kpi--green {{ --history-accent: #43D17D; }}
+.history-kpi__head {{ display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; color: #8D98A6; font-size: 0.72rem; }}
+.history-kpi__icon {{ display: grid; place-items: center; width: 28px; height: 28px; flex: 0 0 28px; border-radius: 6px; background: rgba(255,255,255,0.04); border: 1px solid #2A3440; }}
+.history-kpi__value {{ color: #FFFFFF; font-size: 1.45rem; font-weight: 800; line-height: 1.15; margin-top: 0.55rem; }}
+.history-kpi__meta {{ color: #727E8C; font-size: 0.68rem; margin-top: 0.28rem; }}
+.history-panel {{ height: 100%; min-height: 285px; background: {CARD}; border: 1px solid {BORDA}; border-radius: 8px; padding: 1rem 1.05rem; }}
+.history-panel__eyebrow {{ color: {FIAP}; font-size: 0.67rem; font-weight: 800; text-transform: uppercase; }}
+.history-panel__title {{ color: #FFFFFF; font-size: 1rem; font-weight: 780; margin-top: 0.25rem; }}
+.history-panel__copy {{ color: #7F8A98; font-size: 0.7rem; margin-top: 0.22rem; }}
+.latest-session__head {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding-bottom: 0.85rem; border-bottom: 1px solid {BORDA}; }}
+.latest-session__status {{ display: inline-flex; align-items: center; gap: 0.35rem; color: #63DF99; font-size: 0.66rem; font-weight: 750; white-space: nowrap; }}
+.latest-session__status::before {{ content: ""; width: 6px; height: 6px; border-radius: 50%; background: #43D17D; }}
+.latest-session__energy {{ color: #FFFFFF; font-size: 1.65rem; font-weight: 800; line-height: 1.1; margin-top: 0.9rem; }}
+.latest-session__energy span {{ color: #7F8A98; font-size: 0.72rem; font-weight: 650; }}
+.latest-session__details {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; margin-top: 0.8rem; }}
+.latest-session__detail {{ background: #0D1218; border: 1px solid #252E39; border-radius: 7px; padding: 0.7rem; }}
+.latest-session__label {{ color: #747F8D; font-size: 0.66rem; }}
+.latest-session__value {{ color: #F4F6F8; font-size: 0.86rem; font-weight: 750; margin-top: 0.18rem; }}
+.history-source {{ margin-top: 0.9rem; }}
+.history-source__head {{ display: flex; justify-content: space-between; gap: 1rem; color: #7F8A98; font-size: 0.67rem; margin-bottom: 0.42rem; }}
+.history-source__bar {{ display: flex; height: 9px; border-radius: 3px; overflow: hidden; background: #1A222C; }}
+.history-source__solar {{ background: {SOLAR}; }}
+.history-source__grid {{ background: {REDE}; }}
+.history-source__legend {{ display: flex; justify-content: space-between; gap: 0.75rem; margin-top: 0.45rem; color: #AAB3BE; font-size: 0.68rem; }}
+.history-summary {{ margin-top: 0.65rem; }}
+.history-summary__row {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.72rem 0; border-bottom: 1px solid #242D38; }}
+.history-summary__row:last-child {{ border-bottom: 0; }}
+.history-summary__label {{ color: #85909E; font-size: 0.72rem; }}
+.history-summary__value {{ color: #FFFFFF; font-size: 0.82rem; font-weight: 750; text-align: right; }}
+.history-local-note {{ display: flex; gap: 0.5rem; align-items: flex-start; color: #7F8A98; font-size: 0.68rem; line-height: 1.45; margin-top: 0.75rem; }}
+.history-local-note__icon {{ color: {REDE}; }}
+.history-table-head {{ display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin: 1.35rem 0 0.65rem; }}
+.history-table-head__meta {{ color: #7F8A98; font-size: 0.7rem; text-align: right; }}
+.history-empty {{ display: grid; place-items: center; min-height: 300px; background: #0E141B; border: 1px dashed #35404D; border-radius: 8px; padding: 2rem; text-align: center; }}
+.history-empty__icon {{ display: grid; place-items: center; width: 52px; height: 52px; border-radius: 8px; background: rgba(237, 20, 91, 0.09); border: 1px solid rgba(237, 20, 91, 0.28); font-size: 1.35rem; }}
+.history-empty__title {{ color: #FFFFFF; font-size: 1rem; font-weight: 780; margin-top: 0.85rem; }}
+.history-empty__copy {{ color: #7F8A98; font-size: 0.75rem; line-height: 1.5; max-width: 420px; margin-top: 0.3rem; }}
 
 /* ANÁLISE DE DADOS */
 .analysis-context {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #0E141B; border: 1px solid {BORDA}; border-left: 3px solid {GOODWE}; border-radius: 8px; padding: 0.72rem 0.9rem; margin: 0.15rem 0 1rem; }}
@@ -240,6 +336,21 @@ div.stButton > button:focus {{ box-shadow: 0 0 0 3px rgba(237, 20, 91, 0.24); }}
     .config-summary__item, .config-summary__item:first-child {{ border-right: 0; border-bottom: 1px solid {BORDA}; padding: 0 0 0.75rem; }}
     .config-summary__item:last-child {{ border-bottom: 0; padding-bottom: 0; }}
     .network-note {{ align-items: flex-start; flex-direction: column; gap: 0.25rem; }}
+    .simulation-steps {{ grid-template-columns: 1fr; }}
+    .simulation-step {{ border-right: 0; border-bottom: 1px solid {BORDA}; }}
+    .simulation-step:last-child {{ border-bottom: 0; }}
+    .preview-panel {{ min-height: auto; }}
+    .session-strip {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    .session-strip__item {{ border-bottom: 1px solid {BORDA}; }}
+    .session-strip__item:nth-child(2) {{ border-right: 0; }}
+    .session-strip__item:nth-last-child(-n+2) {{ border-bottom: 0; }}
+    .completion-note {{ align-items: flex-start; flex-direction: column; gap: 0.35rem; }}
+    .history-context {{ align-items: flex-start; flex-direction: column; gap: 0.35rem; }}
+    .history-context__meta {{ text-align: left; }}
+    .history-kpis {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    .history-panel {{ min-height: auto; }}
+    .history-table-head {{ align-items: flex-start; flex-direction: column; gap: 0.25rem; }}
+    .history-table-head__meta {{ text-align: left; }}
     .analysis-context {{ align-items: flex-start; flex-direction: column; gap: 0.35rem; }}
     .analysis-context__meta {{ text-align: left; }}
     .analytics-kpis {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
@@ -247,6 +358,8 @@ div.stButton > button:focus {{ box-shadow: 0 0 0 3px rgba(237, 20, 91, 0.24); }}
     .analysis-insight {{ align-items: flex-start; flex-direction: column; gap: 0.4rem; }}
 }}
 @media (max-width: 480px) {{
+    .history-kpis {{ grid-template-columns: 1fr; }}
+    .history-kpi {{ min-height: 108px; }}
     .analytics-kpis {{ grid-template-columns: 1fr; }}
     .analytics-kpi {{ min-height: 112px; }}
 }}
@@ -261,8 +374,8 @@ div.stButton > button:focus {{ box-shadow: 0 0 0 3px rgba(237, 20, 91, 0.24); }}
 
 HERO_HTML = (
     '<section class="hero"><div class="hero__eyebrow">FIAP · Sprint 3 · Energia e mobilidade</div>'
-    '<h1 class="hero__title">ChargeGrid Simulator</h1>'
-    '<div class="hero__subtitle">Simulação e monitoramento de sessões de recarga com integração de energia solar.</div>'
+    '<h1 class="hero__title">ChargeGrid Intelligence</h1>'
+    '<div class="hero__subtitle">Inteligência para simular, monitorar e analisar recargas com integração de energia solar.</div>'
     '<div class="hero__scope"><div class="hero__scope-item"><span class="hero__scope-icon">🚗</span><span class="hero__scope-label">Mobilidade</span><span class="hero__scope-value">Recarga de veículos elétricos</span></div>'
     '<div class="hero__scope-item"><span class="hero__scope-icon">☀️</span><span class="hero__scope-label">Geração</span><span class="hero__scope-value">Energia solar integrada</span></div>'
     '<div class="hero__scope-item"><span class="hero__scope-icon">⚡</span><span class="hero__scope-label">Continuidade</span><span class="hero__scope-value">Complemento da rede elétrica</span></div></div>'
@@ -308,11 +421,35 @@ def formatar_numero(valor, casas=2):
     return numero.replace(",", "_").replace(".", ",").replace("_", ".")
 
 
+def formatar_moeda(valor):
+    return f"R$ {formatar_numero(valor)}"
+
+
 def render_dashboard_header(title, copy):
     render_html(
         f'<div class="dashboard-title">{title}</div>'
         f'<div class="dashboard-copy">{copy}</div>'
     )
+
+
+def render_simulation_steps(active_step):
+    """Exibe o fluxo da jornada de simulação."""
+    steps = (
+        (1, "Configure", "Escolha HCA, veículo e energia"),
+        (2, "Monitore", "Acompanhe carga, fontes e custo"),
+        (3, "Analise", "Revise o resultado da sessão"),
+    )
+    items = []
+    for number, title, copy in steps:
+        state = "done" if number < active_step else "active" if number == active_step else ""
+        icon = "✓" if number < active_step else str(number)
+        items.append(
+            f'<div class="simulation-step simulation-step--{state}">'
+            f'<div class="simulation-step__number">{icon}</div><div>'
+            f'<div class="simulation-step__title">{title}</div>'
+            f'<div class="simulation-step__copy">{copy}</div></div></div>'
+        )
+    render_html(f'<div class="simulation-steps">{"".join(items)}</div>')
 
 
 # ==================================================
@@ -321,21 +458,57 @@ def render_dashboard_header(title, copy):
 
 database.criar_banco()
 
-if "ativa" not in st.session_state:
+VERSAO_SIMULACAO = 2
+if st.session_state.get("versao_simulacao") != VERSAO_SIMULACAO:
+    st.session_state.versao_simulacao = VERSAO_SIMULACAO
     st.session_state.ativa = False
-if "tempo_min" not in st.session_state:
     st.session_state.tempo_min = 0
-if "potencia" not in st.session_state:
-    st.session_state.potencia = 11.0
-if "perc_solar" not in st.session_state:
-    st.session_state.perc_solar = 70
-if "pontos" not in st.session_state:
     st.session_state.pontos = []
-if "ultima_concluida" not in st.session_state:
     st.session_state.ultima_concluida = None
+    st.session_state.motivo_finalizacao = None
+
+estado_padrao = {
+    "ativa": False,
+    "tempo_min": 0,
+    "modelo_carregador": "GW11K-HCA",
+    "capacidade_bateria_kwh": 60.0,
+    "soc_inicial": 20.0,
+    "soc_alvo": 80.0,
+    "potencia_max_veiculo_kw": 11.0,
+    "potencia_solar_kw": 5.0,
+    "tarifa_kwh": 1.0,
+    "eficiencia_percentual": simulator.EFICIENCIA_PADRAO_PERCENTUAL,
+    "pontos": [],
+    "ultima_concluida": None,
+    "motivo_finalizacao": None,
+}
+for chave, valor in estado_padrao.items():
+    if chave not in st.session_state:
+        st.session_state[chave] = valor
 
 PASSO_MINUTOS = 5
 INTERVALO_SEG = 0.5
+
+
+def calcular_estado_sessao(duracao_minutos=None):
+    return simulator.calcular_sessao(
+        st.session_state.modelo_carregador,
+        st.session_state.tempo_min if duracao_minutos is None else duracao_minutos,
+        st.session_state.capacidade_bateria_kwh,
+        st.session_state.soc_inicial,
+        st.session_state.soc_alvo,
+        st.session_state.potencia_max_veiculo_kw,
+        st.session_state.potencia_solar_kw,
+        st.session_state.tarifa_kwh,
+        st.session_state.eficiencia_percentual,
+    )
+
+
+def salvar_e_encerrar_sessao(sessao, motivo):
+    database.salvar_sessao(sessao)
+    st.session_state.ativa = False
+    st.session_state.ultima_concluida = sessao
+    st.session_state.motivo_finalizacao = motivo
 
 
 # ==================================================
@@ -344,10 +517,11 @@ INTERVALO_SEG = 0.5
 
 with st.sidebar:
     render_html(
-        '<div class="sidebar-brand"><div class="sidebar-brand__eyebrow">Energia &amp; mobilidade</div>'
-        '<div class="sidebar-brand__name">'
-        '<span class="sidebar-brand__mark">⚡</span>ChargeGrid</div>'
-        '<div class="sidebar-brand__copy">Simulador de recarga elétrica</div></div>'
+        '<div class="sidebar-brand">'
+        f'<div class="sidebar-brand__logo-wrap"><img class="sidebar-brand__logo" src="{GOODWE_LOGO_URI}" alt="GoodWe"></div>'
+        '<div class="sidebar-brand__eyebrow">Energia &amp; mobilidade</div>'
+        '<div class="sidebar-brand__name">ChargeGrid Intelligence</div>'
+        '<div class="sidebar-brand__copy">Simulação e inteligência para recarga elétrica</div></div>'
     )
     render_html('<div class="sidebar-nav-label">Menu principal</div>')
     opcoes_menu = {
@@ -362,14 +536,10 @@ with st.sidebar:
     )
     menu = opcoes_menu[menu_selecionado]
     render_html(
-        '<div class="sidebar-partner"><div class="sidebar-partner__label">Tecnologia solar</div>'
-        f'<img class="sidebar-partner__logo" src="{GOODWE_LOGO_URI}" alt="GoodWe">'
-        '<div class="sidebar-partner__copy">Referência em soluções fotovoltaicas e gestão inteligente de energia.</div></div>'
-    )
-    render_html(
         '<div class="sidebar-footer"><div class="sidebar-footer__label">Projeto acadêmico</div>'
         '<div class="sidebar-footer__title">FIAP · Sprint 3</div>'
-        '<div class="sidebar-footer__copy">Pensamento Computacional com Python · SERS</div></div>'
+        '<div class="sidebar-footer__copy">Pensamento Computacional com Python<br>'
+        'Soluções de Energias Renováveis e Sustentáveis</div></div>'
     )
 
 render_html(HERO_HTML)
@@ -381,64 +551,81 @@ render_html(HERO_HTML)
 
 def tela_simulacao():
     if st.session_state.ativa:
-        render_status("RECARGA EM ANDAMENTO", "live")
-        st.write("")
+        atual = calcular_estado_sessao()
+        if atual["concluida"]:
+            salvar_e_encerrar_sessao(atual, "Carga-alvo atingida automaticamente")
+            st.rerun()
 
-        atual = simulator.calcular_sessao(
-            st.session_state.potencia,
-            st.session_state.tempo_min,
-            st.session_state.perc_solar,
+        render_screen_header(
+            "Monitoramento da recarga",
+            "Acompanhe o estado da bateria, as fontes de energia e o custo da operação.",
+        )
+        render_simulation_steps(2)
+        render_status("RECARGA EM ANDAMENTO", "live")
+        render_html(
+            '<div class="session-strip">'
+            f'<div class="session-strip__item"><div class="session-strip__label">Carregador</div><div class="session-strip__value">{atual["modelo_carregador"]}</div></div>'
+            f'<div class="session-strip__item"><div class="session-strip__label">Instalação</div><div class="session-strip__value">{atual["fases"]} · {atual["tensao_v"]} V</div></div>'
+            f'<div class="session-strip__item"><div class="session-strip__label">Limite do veículo</div><div class="session-strip__value">{formatar_numero(st.session_state.potencia_max_veiculo_kw, 1)} kW CA</div></div>'
+            f'<div class="session-strip__item"><div class="session-strip__label">Eficiência estimada</div><div class="session-strip__value">{formatar_numero(atual["eficiencia_percentual"], 0)}%</div></div>'
+            '</div>'
         )
 
         render_section_title("Indicadores da sessão", "Monitoramento")
         c1, c2, c3 = st.columns(3)
-        c1.metric("⏱ Tempo Simulado", f"{atual['duracao_minutos']} min")
-        c2.metric("⚡ Potência", f"{atual['potencia_kw']} kW")
-        c3.metric("🔋 Energia Total", f"{atual['energia_total_kwh']} kWh")
+        c1.metric("🔋 Estado da bateria", f"{formatar_numero(atual['soc_atual'], 1)}%")
+        c2.metric("⏱ Tempo restante", simulator.formatar_duracao(atual["tempo_restante_minutos"]))
+        c3.metric("⚡ Potência efetiva", f"{formatar_numero(atual['potencia_kw'], 1)} kW")
 
         c4, c5, c6 = st.columns(3)
-        c4.metric("☀️ Energia Solar", f"{atual['energia_solar_kwh']} kWh")
-        c5.metric("🏙 Energia da Rede", f"{atual['energia_rede_kwh']} kWh")
-        c6.metric("♻️ Energia Renovável", f"{atual['percentual_renovavel']}%")
+        c4.metric("🔌 Energia fornecida", f"{formatar_numero(atual['energia_total_kwh'])} kWh")
+        c5.metric("🔋 Armazenada na bateria", f"{formatar_numero(atual['energia_bateria_kwh'])} kWh")
+        c6.metric("💳 Custo da rede", formatar_moeda(atual["custo_estimado"]))
+
+        progresso_soc = (
+            (atual["soc_atual"] - atual["soc_inicial"])
+            / (atual["soc_alvo"] - atual["soc_inicial"])
+        )
+        st.progress(max(0.0, min(1.0, progresso_soc)))
+        st.caption(
+            f"Bateria em {formatar_numero(atual['soc_atual'], 1)}% de uma meta de "
+            f"{formatar_numero(atual['soc_alvo'], 0)}%."
+        )
 
         st.write("")
-        render_section_title("Fluxo de energia da sessão", "Distribuição")
+        render_section_title("Fluxo operacional", "Energia em tempo real")
 
         f1, f2, f3 = st.columns(3)
         with f1:
             render_energy_card(
                 "☀️",
-                "Painel Solar",
-                f"{atual['energia_solar_kwh']} kWh",
-                "Fonte renovável",
+                "Geração Solar",
+                f"{formatar_numero(atual['potencia_solar_kw'], 1)} kW",
+                f"{formatar_numero(atual['energia_solar_kwh'])} kWh acumulados",
                 "solar",
             )
         with f2:
             render_energy_card(
                 "🔌",
-                "Estação de Recarga",
-                f"{atual['potencia_kw']} kW",
-                "Conversão e entrega",
+                atual["modelo_carregador"],
+                f"{formatar_numero(atual['potencia_kw'], 1)} kW",
+                f"Nominal de {formatar_numero(atual['potencia_nominal_kw'], 0)} kW",
                 "station",
             )
         with f3:
             render_energy_card(
                 "🚗",
                 "Veículo Elétrico",
-                f"{atual['energia_total_kwh']} kWh",
-                "Energia acumulada",
+                f"{formatar_numero(atual['soc_atual'], 1)}%",
+                f"{formatar_numero(atual['energia_bateria_kwh'])} kWh armazenados",
                 "vehicle",
             )
 
         render_html(
-            '<div class="network-note"><div><div class="network-note__label">Rede elétrica · complemento da sessão</div>'
-            f'<div class="network-note__value">{atual["energia_rede_kwh"]} kWh</div></div>'
-            '<div class="network-note__label">Solar → Estação → Veículo<br>Rede → Estação</div></div>'
-        )
-        st.progress(atual["percentual_renovavel"] / 100)
-        st.caption(
-            f"{atual['percentual_renovavel']}% da energia utilizada nesta sessão "
-            "é proveniente de fonte solar."
+            '<div class="network-note"><div><div class="network-note__label">Complemento instantâneo da rede elétrica</div>'
+            f'<div class="network-note__value">{formatar_numero(atual["potencia_rede_kw"], 1)} kW · {formatar_numero(atual["energia_rede_kwh"])} kWh</div></div>'
+            f'<div class="network-note__label">Perdas estimadas: {formatar_numero(atual["perdas_kwh"])} kWh<br>'
+            f'Tarifa informada: {formatar_moeda(atual["tarifa_kwh"])}/kWh</div></div>'
         )
 
         if len(st.session_state.pontos) > 1:
@@ -447,40 +634,34 @@ def tela_simulacao():
                 render_section_title("Evolução da energia acumulada", "Série temporal")
                 dados_grafico = {
                     "Tempo (min)": [p["min"] for p in st.session_state.pontos],
-                    "Energia Total": [p["total"] for p in st.session_state.pontos],
-                    "Energia Solar": [p["solar"] for p in st.session_state.pontos],
-                    "Energia da Rede": [p["rede"] for p in st.session_state.pontos],
+                    "Fornecida": [p["total"] for p in st.session_state.pontos],
+                    "Armazenada": [p["bateria"] for p in st.session_state.pontos],
+                    "Solar": [p["solar"] for p in st.session_state.pontos],
+                    "Rede": [p["rede"] for p in st.session_state.pontos],
                 }
                 st.line_chart(
                     dados_grafico,
                     x="Tempo (min)",
-                    y=["Energia Total", "Energia Solar", "Energia da Rede"],
-                    color=["#F4F6F8", SOLAR, REDE],
+                    y=["Fornecida", "Armazenada", "Solar", "Rede"],
+                    color=["#F4F6F8", "#43D17D", SOLAR, REDE],
                     height=320,
                 )
 
         st.write("")
-        if st.button("FINALIZAR RECARGA", width="stretch"):
-            final = simulator.calcular_sessao(
-                st.session_state.potencia,
-                st.session_state.tempo_min,
-                st.session_state.perc_solar,
-            )
-            database.salvar_sessao(final)
-            st.session_state.ativa = False
-            st.session_state.ultima_concluida = final
+        if st.button("FINALIZAR E SALVAR SESSÃO", width="stretch"):
+            salvar_e_encerrar_sessao(atual, "Finalizada pelo operador")
             st.rerun()
 
-        st.session_state.tempo_min += PASSO_MINUTOS
-        novo = simulator.calcular_sessao(
-            st.session_state.potencia,
-            st.session_state.tempo_min,
-            st.session_state.perc_solar,
+        st.session_state.tempo_min = min(
+            st.session_state.tempo_min + PASSO_MINUTOS,
+            atual["duracao_estimada_minutos"],
         )
+        novo = calcular_estado_sessao()
         st.session_state.pontos.append(
             {
                 "min": st.session_state.tempo_min,
                 "total": novo["energia_total_kwh"],
+                "bateria": novo["energia_bateria_kwh"],
                 "solar": novo["energia_solar_kwh"],
                 "rede": novo["energia_rede_kwh"],
             }
@@ -490,84 +671,207 @@ def tela_simulacao():
 
     elif st.session_state.ultima_concluida is not None:
         s = st.session_state.ultima_concluida
-        render_status("RECARGA CONCLUÍDA", "success")
+        render_simulation_steps(3)
+        render_status("SESSÃO SALVA NO HISTÓRICO", "success")
         st.write("")
         render_screen_header(
             "Resumo da sessão",
-            "Confira os principais resultados energéticos da recarga finalizada.",
+            f"{s['modelo_carregador']} · {st.session_state.motivo_finalizacao}.",
         )
 
         d1, d2, d3 = st.columns(3)
         d1.metric("⏱ Duração", simulator.formatar_duracao(s["duracao_minutos"]))
-        d2.metric("🔋 Energia Total", f"{s['energia_total_kwh']} kWh")
-        d3.metric("☀️ Energia Solar", f"{s['energia_solar_kwh']} kWh")
+        d2.metric("🔋 Carga final", f"{formatar_numero(s['soc_atual'], 1)}%")
+        d3.metric("🔌 Energia fornecida", f"{formatar_numero(s['energia_total_kwh'])} kWh")
 
-        d4, d5 = st.columns(2)
-        d4.metric("🏙 Energia da Rede", f"{s['energia_rede_kwh']} kWh")
-        d5.metric("♻️ Participação Renovável", f"{s['percentual_renovavel']}%")
+        d4, d5, d6 = st.columns(3)
+        d4.metric("🔋 Energia armazenada", f"{formatar_numero(s['energia_bateria_kwh'])} kWh")
+        d5.metric("☀️ Participação solar", f"{formatar_numero(s['percentual_renovavel'], 1)}%")
+        d6.metric("💳 Custo da rede", formatar_moeda(s["custo_estimado"]))
+
+        render_html(
+            '<div class="completion-note">'
+            f'<div class="completion-note__copy">A estação forneceu {formatar_numero(s["energia_total_kwh"])} kWh; '
+            f'{formatar_numero(s["energia_bateria_kwh"])} kWh chegaram à bateria e '
+            f'{formatar_numero(s["perdas_kwh"])} kWh representam as perdas estimadas do processo.</div>'
+            f'<div class="completion-note__value">{s["soc_inicial"]:.0f}% → {s["soc_atual"]:.1f}%</div></div>'
+        )
 
         st.write("")
         if st.button("NOVA SIMULAÇÃO", width="stretch"):
             st.session_state.ultima_concluida = None
+            st.session_state.motivo_finalizacao = None
             st.session_state.pontos = []
             st.session_state.tempo_min = 0
             st.rerun()
 
     else:
         render_screen_header(
-            "Nova Sessão de Recarga",
-            "Configure a potência e a disponibilidade solar para iniciar a simulação.",
+            "Planeje uma recarga GoodWe HCA",
+            "Configure o carregador, o veículo e as condições energéticas do eletroposto.",
         )
+        render_simulation_steps(1)
 
-        with st.container(border=True):
-            render_section_title("Parâmetros da recarga", "Configuração")
-            col1, col2 = st.columns(2)
+        coluna_configuracao, coluna_previa = st.columns([1.35, 0.85], gap="large")
 
-            with col1:
-                potencia = st.selectbox(
-                    "Potência do carregador",
-                    [7.4, 11.0, 22.0],
+        with coluna_configuracao:
+            with st.container(border=True):
+                render_section_title("Configure a sessão", "Etapa 1 de 3")
+                render_html(
+                    '<div class="config-helper">A potência real será o menor valor entre o carregador HCA e o limite CA aceito pelo veículo.</div>'
+                )
+
+                modelos = list(simulator.CARREGADORES_GOODWE)
+                modelo = st.selectbox(
+                    "Carregador GoodWe",
+                    modelos,
                     index=1,
-                    format_func=lambda x: f"{x} kW",
+                    help="Modelos oficiais da linha HCA disponíveis no Brasil.",
                 )
-            with col2:
-                perc = st.slider(
-                    "Disponibilidade de energia solar (%)",
-                    0,
-                    100,
-                    70,
+                carregador = simulator.CARREGADORES_GOODWE[modelo]
+                render_html(
+                    '<div class="charger-profile"><div class="charger-profile__icon">⚡</div><div>'
+                    f'<div class="charger-profile__title">{modelo} · {formatar_numero(carregador["potencia_kw"], 0)} kW</div>'
+                    '<div class="charger-profile__copy">Carregador CA com conector Tipo 2 e proteção IP66.</div>'
+                    '<div class="charger-profile__specs">'
+                    f'<span>{carregador["fases"]}</span><span>{carregador["tensao_v"]} V</span>'
+                    f'<span>{carregador["corrente_a"]} A</span><span>50/60 Hz</span></div></div></div>'
                 )
 
-            render_html(
-                '<div class="config-summary">'
-                f'<div class="config-summary__item"><div class="config-summary__label">Potência selecionada</div><div class="config-summary__value">{potencia} kW</div></div>'
-                f'<div class="config-summary__item"><div class="config-summary__label">Energia solar disponível</div><div class="config-summary__value config-summary__value--solar">{perc}%</div></div>'
-                f'<div class="config-summary__item"><div class="config-summary__label">Complemento estimado da rede</div><div class="config-summary__value config-summary__value--grid">{100 - perc}%</div></div>'
-                '</div>'
-            )
+                veiculo_1, veiculo_2 = st.columns(2)
+                with veiculo_1:
+                    capacidade_bateria = st.select_slider(
+                        "Capacidade útil da bateria",
+                        options=[40.0, 50.0, 60.0, 75.0, 90.0, 100.0],
+                        value=60.0,
+                        format_func=lambda valor: f"{valor:.0f} kWh",
+                    )
+                with veiculo_2:
+                    potencia_veiculo = st.selectbox(
+                        "Limite do carregador interno",
+                        [3.7, 7.4, 11.0, 22.0],
+                        index=2,
+                        format_func=lambda valor: f"{valor} kW CA",
+                        help="O veículo pode aceitar menos potência do que a estação oferece.",
+                    )
 
-            st.write("")
-            if st.button("INICIAR RECARGA", width="stretch"):
-                st.session_state.potencia = float(potencia)
-                st.session_state.perc_solar = float(perc)
-                st.session_state.tempo_min = PASSO_MINUTOS
+                soc_1, soc_2 = st.columns(2)
+                with soc_1:
+                    soc_inicial = st.slider("Carga inicial da bateria (%)", 0, 90, 20, 5)
+                with soc_2:
+                    soc_alvo = st.slider("Carga desejada (%)", 20, 100, 80, 5)
 
-                primeiro = simulator.calcular_sessao(
-                    float(potencia),
-                    PASSO_MINUTOS,
-                    float(perc),
+                energia_1, energia_2 = st.columns(2)
+                with energia_1:
+                    potencia_solar = st.slider(
+                        "Potência solar disponível",
+                        0.0,
+                        float(carregador["potencia_kw"]),
+                        min(5.0, float(carregador["potencia_kw"])),
+                        0.5,
+                        format="%.1f kW",
+                    )
+                with energia_2:
+                    tarifa = st.number_input(
+                        "Tarifa da rede (R$/kWh)",
+                        min_value=0.0,
+                        value=1.0,
+                        step=0.05,
+                        format="%.2f",
+                    )
+
+                eficiencia = st.select_slider(
+                    "Eficiência estimada entre a estação e a bateria",
+                    options=[85.0, 90.0, 93.0, 95.0],
+                    value=90.0,
+                    format_func=lambda valor: f"{valor:.0f}%",
+                    help="Inclui perdas no carregador interno do veículo e no processo de recarga CA.",
                 )
-                st.session_state.pontos = [
-                    {
-                        "min": PASSO_MINUTOS,
-                        "total": primeiro["energia_total_kwh"],
-                        "solar": primeiro["energia_solar_kwh"],
-                        "rede": primeiro["energia_rede_kwh"],
-                    }
-                ]
-                st.session_state.ativa = True
-                st.session_state.ultima_concluida = None
-                st.rerun()
+
+                configuracao_valida = soc_alvo > soc_inicial
+                plano = None
+                if configuracao_valida:
+                    plano = simulator.calcular_plano_recarga(
+                        modelo,
+                        capacidade_bateria,
+                        soc_inicial,
+                        soc_alvo,
+                        potencia_veiculo,
+                        potencia_solar,
+                        tarifa,
+                        eficiencia,
+                    )
+                else:
+                    st.error("A carga desejada deve ser maior que a carga inicial.")
+
+                render_html(
+                    '<div class="simulation-note"><span class="simulation-note__icon">ⓘ</span>'
+                    '<span>A simulação avança em intervalos de 5 minutos e é salva automaticamente ao atingir a carga desejada. A tarifa é informada pelo operador.</span></div>'
+                )
+
+                if st.button(
+                    "INICIAR OPERAÇÃO DE RECARGA",
+                    width="stretch",
+                    disabled=not configuracao_valida,
+                ):
+                    st.session_state.modelo_carregador = modelo
+                    st.session_state.capacidade_bateria_kwh = float(capacidade_bateria)
+                    st.session_state.soc_inicial = float(soc_inicial)
+                    st.session_state.soc_alvo = float(soc_alvo)
+                    st.session_state.potencia_max_veiculo_kw = float(potencia_veiculo)
+                    st.session_state.potencia_solar_kw = float(potencia_solar)
+                    st.session_state.tarifa_kwh = float(tarifa)
+                    st.session_state.eficiencia_percentual = float(eficiencia)
+                    st.session_state.tempo_min = PASSO_MINUTOS
+
+                    primeiro = calcular_estado_sessao()
+                    st.session_state.pontos = [
+                        {
+                            "min": PASSO_MINUTOS,
+                            "total": primeiro["energia_total_kwh"],
+                            "bateria": primeiro["energia_bateria_kwh"],
+                            "solar": primeiro["energia_solar_kwh"],
+                            "rede": primeiro["energia_rede_kwh"],
+                        }
+                    ]
+                    st.session_state.ativa = True
+                    st.session_state.ultima_concluida = None
+                    st.rerun()
+
+        with coluna_previa:
+            if plano is None:
+                render_html(
+                    '<div class="preview-panel" style="--solar-share:0%">'
+                    '<div class="preview-panel__eyebrow">Previsão da sessão</div>'
+                    '<div class="preview-panel__title">Ajuste o estado da bateria</div>'
+                    '<div class="preview-panel__copy">A carga desejada precisa ser maior que a carga inicial.</div></div>'
+                )
+            else:
+                limite_operacional = (
+                    f'O veículo limita a operação a {formatar_numero(plano["potencia_efetiva_kw"], 1)} kW, '
+                    f'abaixo dos {formatar_numero(plano["potencia_nominal_kw"], 0)} kW nominais do HCA.'
+                    if plano["potencia_efetiva_kw"] < plano["potencia_nominal_kw"]
+                    else f'O conjunto pode operar na potência nominal de {formatar_numero(plano["potencia_nominal_kw"], 0)} kW.'
+                )
+                participacao_solar = plano["percentual_renovavel_previsto"]
+                render_html(
+                    f'<div class="preview-panel" style="--solar-share:{participacao_solar}%">'
+                    '<div class="preview-panel__eyebrow">Previsão da sessão</div>'
+                    f'<div class="preview-panel__title">Carga de {soc_inicial}% até {soc_alvo}%</div>'
+                    '<div class="preview-panel__copy">Estimativa operacional com potência constante e perdas configuradas.</div>'
+                    '<div class="preview-panel__total"><div class="preview-panel__total-label">Tempo estimado</div>'
+                    f'<div class="preview-panel__total-value">{simulator.formatar_duracao(plano["duracao_estimada_minutos"])}</div></div>'
+                    '<div class="preview-grid">'
+                    f'<div class="preview-stat"><div class="preview-stat__label">Potência efetiva</div><div class="preview-stat__value">{formatar_numero(plano["potencia_efetiva_kw"], 1)} kW</div></div>'
+                    f'<div class="preview-stat"><div class="preview-stat__label">Energia da estação</div><div class="preview-stat__value">{formatar_numero(plano["energia_total_necessaria_kwh"])} kWh</div></div>'
+                    f'<div class="preview-stat"><div class="preview-stat__label">Energia na bateria</div><div class="preview-stat__value">{formatar_numero(plano["energia_bateria_necessaria_kwh"])} kWh</div></div>'
+                    f'<div class="preview-stat"><div class="preview-stat__label">Perdas estimadas</div><div class="preview-stat__value">{formatar_numero(plano["perdas_previstas_kwh"])} kWh</div></div>'
+                    f'<div class="preview-stat"><div class="preview-stat__label">Energia solar</div><div class="preview-stat__value preview-stat__value--solar">{formatar_numero(plano["energia_solar_prevista_kwh"])} kWh</div></div>'
+                    f'<div class="preview-stat"><div class="preview-stat__label">Custo da rede</div><div class="preview-stat__value preview-stat__value--grid">{formatar_moeda(plano["custo_previsto"])}</div></div></div>'
+                    '<div class="preview-split"><div class="preview-split__head"><span>Solar</span><span>Rede elétrica</span></div>'
+                    f'<div class="preview-split__bar"><div class="preview-split__solar"></div><div class="preview-split__grid"></div></div></div>'
+                    f'<div class="preview-limit">{limite_operacional}</div></div>'
+                )
 
 
 # ==================================================
@@ -577,38 +881,147 @@ def tela_simulacao():
 def tela_historico():
     render_screen_header(
         "Histórico de Recargas",
-        "Consulte as sessões simuladas e armazenadas no sistema.",
+        "Acompanhe as sessões concluídas e consulte os dados armazenados localmente.",
     )
     sessoes = database.listar_sessoes()
 
     if not sessoes:
-        st.info("Nenhuma sessão registrada ainda. Inicie uma recarga na aba Simulação.")
+        render_html(
+            '<div class="history-empty"><div>'
+            '<div class="history-empty__icon">🕘</div>'
+            '<div class="history-empty__title">Nenhuma recarga concluída</div>'
+            '<div class="history-empty__copy">Inicie uma simulação e use o botão Finalizar Recarga para registrar a primeira sessão neste histórico.</div>'
+            '</div></div>'
+        )
         return
 
     resumo = database.calcular_resumo()
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Total de Sessões", resumo["total_sessoes"])
-    c2.metric("Energia Consumida", f"{resumo['energia_total']} kWh")
-    c3.metric("Energia Solar", f"{resumo['energia_solar']} kWh")
+    ultima = sessoes[0]
+    total_sessoes = resumo["total_sessoes"]
+    duracao_total = sum(sessao[3] for sessao in sessoes)
+    duracao_media = duracao_total / total_sessoes
+    percentual_rede = max(0, 100 - resumo["percentual_medio"])
+    rotulo_sessoes = "sessão armazenada" if total_sessoes == 1 else "sessões armazenadas"
+    modelo_ultima = ultima[8] or "Registro anterior"
+    soc_ultima = (
+        f"{ultima[10]:.0f}% → {ultima[11]:.1f}%"
+        if ultima[10] is not None and ultima[11] is not None
+        else "Não informado"
+    )
+    custo_ultima = formatar_moeda(ultima[14]) if ultima[14] is not None else "Não informado"
 
-    st.write("")
-    render_section_title("Sessões registradas", "Base local")
-    linhas = []
-    for s in sessoes:
-        linhas.append(
-            {
-                "ID": s[0],
-                "Data": s[1],
-                "Potência": f"{s[2]} kW",
-                "Duração": simulator.formatar_duracao(s[3]),
-                "Energia Total": f"{s[4]:.2f} kWh",
-                "Energia Solar": f"{s[5]:.2f} kWh",
-                "Energia da Rede": f"{s[6]:.2f} kWh",
-                "Renovável": f"{s[7]:.1f}%",
-            }
+    render_html(
+        '<div class="history-context"><div class="history-context__status">'
+        '<span class="history-context__dot"></span>Base local disponível</div>'
+        f'<div class="history-context__meta">Última atualização: {ultima[1]} · '
+        f'{total_sessoes} {rotulo_sessoes}</div></div>'
+    )
+
+    render_html(
+        '<div class="history-kpis">'
+        '<div class="history-kpi"><div class="history-kpi__head"><span>Sessões concluídas</span><span class="history-kpi__icon">✓</span></div>'
+        f'<div class="history-kpi__value">{total_sessoes}</div><div class="history-kpi__meta">Registros disponíveis para consulta</div></div>'
+        '<div class="history-kpi history-kpi--energy"><div class="history-kpi__head"><span>Energia entregue</span><span class="history-kpi__icon">⚡</span></div>'
+        f'<div class="history-kpi__value">{formatar_numero(resumo["energia_total"])} kWh</div><div class="history-kpi__meta">Consumo acumulado das recargas</div></div>'
+        '<div class="history-kpi history-kpi--solar"><div class="history-kpi__head"><span>Energia solar</span><span class="history-kpi__icon">☀️</span></div>'
+        f'<div class="history-kpi__value">{formatar_numero(resumo["energia_solar"])} kWh</div><div class="history-kpi__meta">Energia fornecida por fonte renovável</div></div>'
+        '<div class="history-kpi history-kpi--green"><div class="history-kpi__head"><span>Participação renovável</span><span class="history-kpi__icon">♻</span></div>'
+        f'<div class="history-kpi__value">{formatar_numero(resumo["percentual_medio"], 1)}%</div><div class="history-kpi__meta">Média ponderada de todas as sessões</div></div>'
+        '</div>'
+    )
+
+    coluna_ultima, coluna_resumo = st.columns([1.35, 0.85], gap="large")
+
+    with coluna_ultima:
+        render_html(
+            '<div class="history-panel"><div class="latest-session__head"><div>'
+            '<div class="history-panel__eyebrow">Última recarga</div>'
+            f'<div class="history-panel__title">Sessão #{ultima[0]} · {modelo_ultima}</div>'
+            f'<div class="history-panel__copy">Concluída em {ultima[1]}</div></div>'
+            '<div class="latest-session__status">Concluída</div></div>'
+            f'<div class="latest-session__energy">{formatar_numero(ultima[4])} <span>kWh entregues</span></div>'
+            '<div class="latest-session__details">'
+            f'<div class="latest-session__detail"><div class="latest-session__label">Potência</div><div class="latest-session__value">{formatar_numero(ultima[2], 1)} kW</div></div>'
+            f'<div class="latest-session__detail"><div class="latest-session__label">Duração</div><div class="latest-session__value">{simulator.formatar_duracao(ultima[3])}</div></div>'
+            f'<div class="latest-session__detail"><div class="latest-session__label">Carga da bateria</div><div class="latest-session__value">{soc_ultima}</div></div>'
+            f'<div class="latest-session__detail"><div class="latest-session__label">Custo da rede</div><div class="latest-session__value">{custo_ultima}</div></div></div>'
+            '<div class="history-source"><div class="history-source__head"><span>Distribuição da energia</span>'
+            f'<span>{formatar_numero(ultima[7], 1)}% solar</span></div>'
+            '<div class="history-source__bar">'
+            f'<div class="history-source__solar" style="width:{ultima[7]}%"></div>'
+            f'<div class="history-source__grid" style="width:{100 - ultima[7]}%"></div></div>'
+            '<div class="history-source__legend">'
+            f'<span>Solar · {formatar_numero(ultima[5])} kWh</span>'
+            f'<span>Rede · {formatar_numero(ultima[6])} kWh</span></div></div></div>'
         )
 
-    st.dataframe(linhas, width="stretch", hide_index=True)
+    with coluna_resumo:
+        render_html(
+            '<div class="history-panel"><div class="history-panel__eyebrow">Visão acumulada</div>'
+            '<div class="history-panel__title">Resumo do histórico</div>'
+            '<div class="history-panel__copy">Indicadores calculados a partir das sessões concluídas.</div>'
+            '<div class="history-summary">'
+            f'<div class="history-summary__row"><span class="history-summary__label">Tempo total de recarga</span><span class="history-summary__value">{simulator.formatar_duracao(duracao_total)}</span></div>'
+            f'<div class="history-summary__row"><span class="history-summary__label">Duração média</span><span class="history-summary__value">{simulator.formatar_duracao(round(duracao_media))}</span></div>'
+            f'<div class="history-summary__row"><span class="history-summary__label">Média por sessão</span><span class="history-summary__value">{formatar_numero(resumo["consumo_medio"])} kWh</span></div>'
+            f'<div class="history-summary__row"><span class="history-summary__label">Dependência da rede</span><span class="history-summary__value">{formatar_numero(percentual_rede, 1)}%</span></div>'
+            '</div><div class="history-local-note"><span class="history-local-note__icon">ⓘ</span>'
+            '<span>Este histórico está armazenado no banco local deste computador.</span></div></div>'
+        )
+
+    render_html(
+        '<div class="history-table-head"><div>'
+        '<div class="section-kicker">Base local</div><div class="section-title">Todas as sessões</div></div>'
+        f'<div class="history-table-head__meta">{total_sessoes} registros · ordenados do mais recente para o mais antigo</div></div>'
+    )
+
+    linhas = pd.DataFrame(
+        [
+            {
+                "Sessão": sessao[0],
+                "Data e hora": sessao[1],
+                "Carregador": sessao[8] or "Registro anterior",
+                "Potência": sessao[2],
+                "Duração": simulator.formatar_duracao(sessao[3]),
+                "Carga da bateria": (
+                    f"{sessao[10]:.0f}% → {sessao[11]:.1f}%"
+                    if sessao[10] is not None and sessao[11] is not None
+                    else "—"
+                ),
+                "Energia total": sessao[4],
+                "Energia solar": sessao[5],
+                "Energia da rede": sessao[6],
+                "Custo": formatar_moeda(sessao[14]) if sessao[14] is not None else "—",
+                "Renovável": sessao[7],
+            }
+            for sessao in sessoes
+        ]
+    )
+    altura_tabela = max(145, min(70 + len(linhas) * 35, 520))
+    st.dataframe(
+        linhas,
+        width="stretch",
+        height=altura_tabela,
+        hide_index=True,
+        column_config={
+            "Sessão": st.column_config.NumberColumn("Sessão", format="#%d"),
+            "Data e hora": st.column_config.TextColumn("Data e hora", width="medium"),
+            "Carregador": st.column_config.TextColumn("Carregador", width="medium"),
+            "Potência": st.column_config.NumberColumn("Potência", format="%.1f kW"),
+            "Duração": st.column_config.TextColumn("Duração"),
+            "Carga da bateria": st.column_config.TextColumn("Carga da bateria", width="medium"),
+            "Energia total": st.column_config.NumberColumn("Energia total", format="%.2f kWh"),
+            "Energia solar": st.column_config.NumberColumn("Energia solar", format="%.2f kWh"),
+            "Energia da rede": st.column_config.NumberColumn("Energia da rede", format="%.2f kWh"),
+            "Custo": st.column_config.TextColumn("Custo"),
+            "Renovável": st.column_config.ProgressColumn(
+                "Renovável",
+                min_value=0,
+                max_value=100,
+                format="%.1f%%",
+            ),
+        },
+    )
 
 
 # ==================================================

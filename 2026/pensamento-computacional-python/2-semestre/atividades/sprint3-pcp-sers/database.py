@@ -36,7 +36,7 @@ def conectar():
 # ==================================================
 
 def criar_banco():
-    """Cria a tabela de sessões caso ela ainda não exista."""
+    """Cria a tabela e adiciona campos novos sem apagar registros antigos."""
 
     conexao = conectar()
 
@@ -56,6 +56,22 @@ def criar_banco():
         )
         """
     )
+
+    cursor.execute("PRAGMA table_info(sessoes)")
+    colunas_existentes = {coluna[1] for coluna in cursor.fetchall()}
+    colunas_adicionais = {
+        "modelo_carregador": "TEXT",
+        "capacidade_bateria_kwh": "REAL",
+        "soc_inicial": "REAL",
+        "soc_final": "REAL",
+        "energia_bateria_kwh": "REAL",
+        "perdas_kwh": "REAL",
+        "custo_estimado": "REAL",
+    }
+
+    for nome, tipo in colunas_adicionais.items():
+        if nome not in colunas_existentes:
+            cursor.execute(f"ALTER TABLE sessoes ADD COLUMN {nome} {tipo}")
 
     conexao.commit()
 
@@ -82,9 +98,16 @@ def salvar_sessao(sessao):
             energia_total_kwh,
             energia_solar_kwh,
             energia_rede_kwh,
-            percentual_renovavel
+            percentual_renovavel,
+            modelo_carregador,
+            capacidade_bateria_kwh,
+            soc_inicial,
+            soc_final,
+            energia_bateria_kwh,
+            perdas_kwh,
+            custo_estimado
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             sessao["data_hora"],
@@ -93,7 +116,14 @@ def salvar_sessao(sessao):
             sessao["energia_total_kwh"],
             sessao["energia_solar_kwh"],
             sessao["energia_rede_kwh"],
-            sessao["percentual_renovavel"]
+            sessao["percentual_renovavel"],
+            sessao.get("modelo_carregador"),
+            sessao.get("capacidade_bateria_kwh"),
+            sessao.get("soc_inicial"),
+            sessao.get("soc_atual"),
+            sessao.get("energia_bateria_kwh"),
+            sessao.get("perdas_kwh"),
+            sessao.get("custo_estimado")
         )
     )
 
@@ -123,7 +153,14 @@ def listar_sessoes():
             energia_total_kwh,
             energia_solar_kwh,
             energia_rede_kwh,
-            percentual_renovavel
+            percentual_renovavel,
+            modelo_carregador,
+            capacidade_bateria_kwh,
+            soc_inicial,
+            soc_final,
+            energia_bateria_kwh,
+            perdas_kwh,
+            custo_estimado
         FROM sessoes
         ORDER BY id DESC
         """
