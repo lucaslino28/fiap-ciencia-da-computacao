@@ -275,11 +275,24 @@ O arquivo `recargas.db` é criado automaticamente na primeira execução. Pastas
 
 ### Instalação
 
-Clone o repositório e acesse a pasta da Sprint 3:
+Clone o repositório:
 
 ```bash
 git clone https://github.com/lucaslino28/fiap-ciencia-da-computacao.git
+```
+
+Depois, acesse a pasta correspondente à disciplina.
+
+Para **Pensamento Computacional com Python**:
+
+```bash
 cd fiap-ciencia-da-computacao/2026/pensamento-computacional-python/2-semestre/atividades/sprint3-pcp-sers
+```
+
+Para **Soluções de Energias Renováveis e Sustentáveis**:
+
+```bash
+cd fiap-ciencia-da-computacao/2026/solucoes-energias-renovaveis-sustentaveis/2-semestre/atividades/sprint3-pcp-sers
 ```
 
 Crie e ative um ambiente virtual.
